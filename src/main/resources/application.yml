@@ -1,0 +1,21 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/orders}
+    username: ${DB_USER:ahk}
+    password: ${DB_PASSWORD:ahk}
+  jpa:
+    hibernate:
+      ddl-auto: update
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: 5672
+    username: guest
+    password: guest
+
+app:
+  catalog-url: ${CATALOG_URL:http://localhost:8081}
+  courier-url: ${COURIER_URL:http://localhost:8083}
+  predictor-url: ${PREDICTOR_URL:http://localhost:8000}

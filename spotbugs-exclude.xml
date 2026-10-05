@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <!--
+    EI_EXPOSE_REP2: SpotBugs flags constructors that store a reference to a mutable object. Here it
+    fires on every Spring bean that receives its collaborators (services, repositories, templates)
+    by constructor injection, which is the intended pattern and cannot be defensively copied.
+  -->
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP2" />
+  </Match>
+  <!--
+    EI_EXPOSE_REP: the request/response DTOs are records that carry lists (menu, order items);
+    copying them on every access would add nothing.
+  -->
+  <Match>
+    <Package name="ahk.order" />
+    <Bug pattern="EI_EXPOSE_REP" />
+  </Match>
+  <!--
+    URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD: OrderEntity exposes public fields that JPA and Jackson
+    read through reflection, so SpotBugs never sees a direct read.
+  -->
+  <Match>
+    <Class name="ahk.order.OrderEntity" />
+    <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD" />
+  </Match>
+</FindBugsFilter>
